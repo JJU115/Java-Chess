@@ -1,0 +1,410 @@
+Work log for Java Project #2 -- Java Chess
+
+This document lists progress made towards implementing a fully functional and playable version of chess in the Java programming language.
+Work that was planned and potential work also appears here.
+
+Creation date of this document: April 08, 2018
+Date of last modification: September 8, 2018
+
+Author: Justin Underhay 
+
+
+01 - April 08, 2018
+- Reviewed some Java basics: Inheritance, Classes, and objects
+	- Chess pieces will be implemented as classes. Inheritance will provide the mechanism to cut redundancy when filling in the state and
+	behaviour of each piece.
+	
+- Current plans are to make use of 2D graphics/animations and graphical input/output panes to display the board, pieces, and capture/movement animations.
+	- This will require extra study to grasp the basic concepts needed to properly implement such functionality.
+	- Supplement 3G (2D graphics) and chapter 14 (Graphical User Interfaces) in the 'Building Java Programs' text 
+	should provide the necessary background. Extra material is also present and may be consulted later to 'polish' the program. 	
+	
+- Obviously, the core mechanics and basic structure/framework of the program should be finalized before such elements are incorporated.
+
+
+02 - April 10, 2018
+- The general structure/framework of the program has been partially completed. Notes and ideas have been recorded and will be consulted when
+finalizing. Thinking of making the board its own class, pieces will each have their own class and will inherit from an abstract class 'Piece'. 
+
+- Some extra reveiw of Java concepts is necessary. Will read through Chapter 14, GUIs, to establish some background in how the board/pieces will
+appear and interact with the main driver of the program.
+
+- A university exam is upcoming and will require extra attention. As such for the next 10 days progress on this project will be impeded until the exam
+is written. The log may only be updated sparingly during this time.	
+
+
+03 - April 11, 2018
+- Studying more of GUI features/concepts in Java. Physical coding will only take place once enough material has been researched.
+Finishing chapter 14 of the text should be sufficient. Will likely finish by end of week, actual coding might start this weekend.
+
+- Finished studying various sections: Buttons, text areas, labels, text fields, panels, frames, layouts, action events, mouse events, O.O GUIs.
+
+- Sections on drawing 2D graphics and animating with timers still remain. Might have to look over Supplement 3G for extra material. 
+
+
+04 - April 13, 2018
+- As of now, dedicated study of the text is complete. Will need to check/reference the books for minor details or possibly re-read some sections
+to gain necessary understanding for the rest of this project.
+
+- Current objective is to design the ChessBoard class and have a working implementation which displays the chessboard and responds to mouse events
+when areas of the board are clicked, which should return a coordinate set and display them on screen.
+
+- Job related commitments have reduced the amount of free time that can be dedicated to this project. Progress will be made over weekend but next week
+will severely impede progress and may result in very minor updates to the log during that time if any at all.     
+
+
+
+05 - April 15, 2018
+- Work has begun on implementing the chessboard. New plan is to represent each tile onscreen with a button, the icon of the button will be a buffered image
+which is transparent if no piece is on the space or will be filled with an image of the piece currently occupying it. 
+
+- The 'Tile' class will now represent individual squares on the board. The Chessboard class will initialize by creating 8x8 Tile objects and using
+them as game squares. 
+
+- The board itself is currently a JFrame but will have to be changed later into a panel to accommodate additional components besides the board.
+
+- Some progress has been made in creating preliminary graphics but the current implementation is very rough, will continue refining over the coming days.
+
+
+06 - April 16, 2018
+- Problems encountered with laying out the board's squares has been resolved. Use of a BorderLayout on the JPanel that holds the button completely fills
+the square without leaving random empty space between different JPanel Tiles.
+
+- The ChessBoard class is now capable of producing an accurate depiction of a chessboard. Once created, a Chessboard object can produce a JFrame onscreen
+with an 8x8 grid of black and white squares.
+
+- Will alter Chessboard class to have a JPanel member to put the squares on and a 2D array to hold Tile objects among other unplanned members.
+
+
+07 - April 18, 2018
+- Chessboard and Tile classes are now properly configured. Changes were made to both: members and functions were added, the Chessboard now has a
+2D Tile array holding all tile objects which all have ID numbers for themselves and the piece currently occupying it.
+
+- The Chessboard class doesn't create the frame that holds it, now there is a JPanel member which represents the board. The board holds all the JPanels
+representing tiles from the corresponding Tile object. This will allow the main program to create the main frame and place the board within it while
+making space for other components.
+
+- Tile objects now have an attached mouse event handler. Upon pressing a Tile's JButton, a JOptionPane will display the ID of that Tile.
+The will be changed later but the base functionality is implemented and working.   
+
+
+08 - April 24, 2018
+- Graphics representing the chess pieces have been found and early experiments have been successful in adding their images to the program.
+Some recoloring will be necessary and extra work is needed to ensure the piece graphics don't come on a square background such that the entire
+square the piece occupies is overtaken.
+
+- Once finished, will start planning out and implementing the Piece class as well as all the sub-classes that inherit it.  
+
+
+09 - April 26, 2018
+- Abstract Piece class and Pawn class have been started. Chessboard setPieces method now populates the board with pawns in the correct order and number.
+
+- The Tile class now holds a Piece as a private member. This can be instantiated as as specific piece (Pawn, Rook...) to take full advantage of
+abstract classes and dynamic binding.
+
+- Next goal is to implement functionality that lets the player select a tile with a piece and move the piece. Only pawns are being experimented with now
+but once the implementation is figured out, other pieces can be added. 
+
+
+
+10 - April 27, 2018
+- Working on mechanics related to selecting and moving pieces. Gave each Piece a 'Captured' boolean member but now thinking of using a HashMap to map
+pieces to tile IDs (or perhaps to Tile objects themselves?). This will eliminate the need for the 'Captured' member.
+
+- In addition, Tile objects now have an 'activated' boolean member that is maintained as false and made true when the tile's button is clicked (only if a piece is on it).
+By having the main program check the tiles 'activated' member it can determine which tile was clicked and take appropriate action, checking if
+there is a piece on the Tile, whether or not the piece belongs to the player whose turn it is, ect.
+
+- Continuing to work on selection and movement of pieces. Will also need to implement Pawn's 'move' method. 
+
+
+11 - May 01, 2018
+- Figured out basic framework but still need to work out minor details related to moving pieces. Current implementation waits for the player to first
+select a piece and then waits for the player to select a tile to move to. The player could select multiple tiles setting each of their activated 
+attributes at any point, outside of the main play sequence this would have to be controlled.
+
+- Since the tile attributes are checked sequentially the player could select a Tile already checked and then select a Tile yet to be checked and the
+Tile closest to not being checked would be recognized by the program. The rate at which the code is executed may make this bug unnoticeable but
+for the sake of a robust program should be corrected. In other words, the first Tile to be selected should be the one recognized by the program.
+
+- Right now, the implementation doesn't prevent against invalid moves. Eventually, the individual 'move' function of the Piece classes will control for this.  
+
+
+
+12 - May 04
+- Algorithm for player turn worked out, implementation is in progress. Minor details will be filled in along the way.
+
+- Right now the algorithm only runs through 1 iteration and only recognizes pawns. Getting it to recognize other pieces is simple but in order
+to get play to continue indefinitely, a set of functions for checking win conditions has to be designed and implemented. Right now getting the 
+implementation for each individual turn done and fine-tuned is top priority and should be finished over the next day or two.
+
+
+13 - May 05
+- Play loop implementation is complete, debugging will now occur until the procedure functions correctly for white pawn pieces.
+
+
+14 - May 10
+- Main play loop now fully works with pawns. Turns alternate between white and black, Pawns move as they should, they can capture other pieces and
+be captured.
+
+- No bugs found as of now. There will be multiple changes to the implementation to allow for other pieces, each with their own range of valid
+moves, to populate the board. The play loop needs a way to check if there is a winner, right now it's just an infinite loop.
+
+- Next steps are to implement other pieces and alter auxilliary data structures/conditions. Will also have to update piece graphics.
+
+
+15 - May 13
+- Working on implementing Rook moves. 
+
+- Static function for determining the valid moves array seems too cumbersome and lengthy. Will have to go over it extensively when looking for 
+optimizations.
+
+
+16 - May 14
+- Rook piece is now fully implemented. It moves and captures/is captured just as the pawns.
+
+- Will now implement the knights followed by: bishops, queen, king.
+
+- Will also look into giving each specific piece class a move function and transferring the code from static methods in Chessboard class. This 
+reduces the length of the Chessboard class and adds some to the pieces, balancing things out.
+
+
+17 - May 17
+- The Knight and Bishop pieces are fully implemented and move properly. They can capture and be captured like any other piece.
+
+- Individual piece classes now have a move function which can be called from any piece object and will calculate the tile ID of all spaces
+that piece can validly move to. The original static function in the Chessboard class is no more and each Piece class inherits the move function
+from the Piece Superclass and overrides it.
+
+- Queen and King remain, will implment them next. Also can optimize the setPieces function in the Chessboard class. Should also change Knight
+class to eliminate the exhaustive approach of determining each individual possible move.
+
+
+18 - May 20
+- Queen and King are fully implemented. All pieces complete, will have to look out for bugs but everything works as it should for now.
+
+- Will most likely resize piece icons to be 124x124 but nothing confirmed yet.
+
+- Next tasks are to implement special moves: Castling, En-Passant, Promotion
+
+
+19 - May 25
+- En-passant move for pawns is fully implemented. Had to make changes to the main play loop, adding extra conditions to check. Also
+changed the Piece and Pawn classes adding extra methods, Pawns have a new boolean member that records whether the pawn has double jumped.
+
+- Play loop now associates each turn with a numerical value and Pawn objects have a member which represents the turn they are currently on.
+
+- Function for checking for check has been designed, will implement it next. It will be used to implement the castling procedure. For
+promotion move, have to design a new graphical interface that allows selection from the player when choosing which piece to promote pawn to.
+
+
+
+20 - May 27
+- Procedures for validating check and checkmate have been successfully implemented. If checkmate has been achieved the main play loop will exit.
+
+- If a king is in check but can escape by moving, the player will be allowed to make those move(s) however if check can be evaded by capturing the checking
+piece or by blocking it the program still recognizes this as checkmate, will implement these features next.
+
+- A player whose king is in or not in check is prevented from making a move that will put their king in check.
+
+
+21 - May 30 
+- The means to validate check and checkmate are fully completed. When determining checkmate, the program considers whether
+the attacking piece can be captured or blocked hence every means to escape check are considered.
+
+- The structure and layout of the program files need to be reviewed and multiple changes need be made to optimize readability and
+presentation. Will now put all program files in an online repository to allow easier access.
+
+- Afterwards the special moves Castling and Promotion will be designed and implemented.
+
+
+
+22 - June 3
+- Looked through and cleaned certain areas of code. Optimized other sections. Will begin design of Castling/Promotion now.
+
+
+
+23 - June 8
+- Castling procedures are now implemented. All restrictions and limitations are fully enforced.
+
+- Designing the promotion special move is next but will require extra time in order to incorporate graphical elements (piece selection menu).
+Will need to go back to study textbook sections on GUIs while designing.
+
+- Before this however, it may be necessary to put comments/notes to clean up and make code more readable.
+
+
+24 - June 14
+- Code has not been filled with comments yet but work on implementing the promotion feature has progressed significantly. An additional file,
+PromotionMenu.java, contains the necessary class.
+
+- An object of PromotionMenu contains a interactive graphical menu to select pieces from via JRadioButtons and displays the icon of the user's current choice.
+There is also a 'select' button which registers the user's choice. Exactly one choice must be made and the program enforces this.
+
+- The code for the PromotionMenu has to be cleaned and optimized, and some tweaks to the visual display must be made but the core functionality is
+fully implemented.
+
+
+25 - June 18
+- Promotion is now fully implemented. Graphical frame and functional logic working properly.  
+
+- Will likely look through all the code again and clean up/optimize necessary areas, maybe add comments in as well. Next major steps are refurbishing
+the entire graphical interface to look more refined, adding in a menu screen, options, a rules page and changing the the main JFrame that holds the 
+board to include extra features.
+
+- Also need to configure the game to recognize a stalemate and allow resignation. After all above is completed and final checks made, the game will be
+ready to publish.
+
+
+26 - July 2
+- Work commitments have prevented work on the game for the past two weeks and may continue to do so intermittenly.
+
+- Regardless work has just finished on implementing stalemate, this is when a player only has a king remaining that is not in check
+and is their turn to move but any move they make will result in check. 
+
+- Will likely work on minor graphic changes and implement a means for a player to resign before doing larger graphical changes.
+
+
+27 - July 8
+- Currently working on commenting/documenting code and further cleaning/reorganizing sections to improve readability.
+
+- No significant progress will be made on graphical improvement or player resignation mechanics for the next 10 days or so due to travel plans.
+
+
+28 - July 21
+- Several of the program files have been supplemented with comments and been reorganized for readability. Not all are complete however.
+
+- Will likely change course to implement player resignation and major graphical overhaul before finishing commenting.
+
+
+29 - July 25
+- The welcome screen has been designed and implemented. The new class Welcome.java allows for instantiation of a welcome screen that will be 
+displayed at the start of the program before any gameplay.
+
+- Will also create a new class to allow for a help screen which will display rules and how to play.
+
+- Afterwards, will link pages to buttons on welcome screen and reconfigure the chessboard graphical display when implementing player resignation. 
+
+
+30 - July 26
+- A new class, DisplayScreen, has been created to be the superclass of all classes which display a graphical menu and contain interactive components.
+These are PromotionMenu.java, Welcome.java, and the sson to be created Help.java. The new class helps cut redundancy and eases the process of controlling
+which screens should be displayed during user interaction.
+
+- PlayChess.java now begins execution by displaying the welcome screen which allows users to move from the main menu to the game board or rules page.
+The 'Quit' and 'Play' buttons work and when Help.java is implemented, the 'Help' button will too.
+
+- 'Quit' exits the entire program, 'Play' closes the current screen and displays the chessboard. 'Help' will display the rules page which will allow
+movement back to the main menu or to the chessboard.
+
+
+
+31 - August 12
+- Work has been delayed over the past several weeks due to work commitments but recent progress has been made. The piece icon images have been updated to
+have more appropriate sizes and appearances and the main JFrame has been expanded to include room for a player selection label and other widgets.
+
+- To accomplish this the main JFrame has been changed to a SpringLayout from a BorderLayout and the dimensions are now 1250x1060 pixels, this will
+likely be the final size.
+
+- After widgets have been added to main JFrame all functionality related aspects will be complete and only graphical cosmetic formatting will be left.
+The promotion menu, welcome page, help page are top priority.
+
+
+32 - August 26
+- Excesssive delays in work have occurred due to vacation and work commitments but with a drastically reduced work schedule and no academic obligations 
+for the next week, significant progress should be expected.
+
+- New features have been added. A Label displaying the current player's turn, a label displaying the icon of the selected piece during each player's 
+turn, and a quit button which allows players to exit from the playing board view.
+
+- Next goals are cosmetic changes to the Welcome and board screens along with filling out the help page using a JScrollPane with rules and information.
+
+
+33 - August 27
+- Stylistic changes have been made to the Welcome page and other minor aspects such as the page location on screen have been altered.
+
+- Will consult documentation on JScrollPane and make initializations on Help page in the next day.
+
+
+34 - August 28
+- Working on filling the rules page. This will be accomplished with an external file, Rules.txt, written with some HTML to be compatible with JLabel.
+The Help class now includes a instance method that reads from the file and passes it to the JLabel on the Help page. JScrollPane is working as it should.
+
+- Need to write rules page, alter layout/look of Help page, change PromotionMenu's appearance, finish commenting code, reorganize and compartmentalize code,
+then do some final review and optimization before publishing.
+
+
+35 - August 31
+- Writing and stylizing of the Help/Rules page is completed. Changes in frame sizes and screen positions have also been made.
+
+- Next will finalize the PromotionMenu's appearance. Should also add titles to all frames and alter scrolling amount on Help page, right now using
+the mouse wheel moves the scrollpane too slowly.
+
+- Potential issue: If a player selects a piece that has >1 presence on the board there is no way to know which specific presence is chosen. That is,
+if a Pawn is selected which of the 8 Pawns was it? This is only a problem if the player's attention span and memory are fraught but perhaps should 'fix'
+regardless.
+
+
+36 - September 3
+- Academic obligations will come into effect Sept. 5. The first week or so shouldn't impede ability to work on this project but after that precious little
+time will be available to work, must aim to publish game before then.
+
+- Finalized the appearance of the PromotionMenu, found a bug related to valid move checking on the Bishop and fixed it. Must still address issues from 
+entry 35.
+
+- Also found an incredibly bizarre bug that filled the board randomly with Pawns but was unable to find the cause and how to repeat. Must carefully 
+look over code and perform thorough testing. 
+
+
+37 - September 4
+- Made minor changes and looked for bugs. Many seem to be related to Checkmate in particular the bug that fills the board randomly with pieces.
+
+- Should probably fix these issues before commenting and organizing code.
+
+- Have been putting this off for a while but finally switched the sides the colors start on, now with White at the bottom and Black at top.
+
+- (LATE UPDATE) Managed to seemingly fix all issues related to the Checkmate related bug, had to do with the validateCheckMate method that set 
+pieces to examine if the checking piece could be blocked but didn't remove their icons from examined tiles. Can now focus on commenting and reviewing
+code.
+
+
+38 - September 5
+- Commented and reviewed code of most classes, only 1 remains to finish not including main file PlayChess.java.
+
+- First day of university classes occurred today. So far, a poor impression has been imparted. Should not rely on having much free time 
+after next few days.
+
+
+39 - September 6 
+- Last file before main PlayChess file reviewed and commented. Changed import declarations of each file, reducing the quantity of imported packages
+to only those necessary in order to save space.
+
+- Achieved optimization in several piece classes, particularly in the King and Pawn classes but also in Rook and Bishop. Since the Knight is similar
+to the King, can also achieve optimization there in length and number of calculations.
+
+- After adjusting Knight class can focus solely on review/comment for main PlayChess class, the biggest and most complicated file, which will take
+extra time. Then, final checks and testing followed by publication.
+
+
+40 - September 7
+- Found and resolved multiple issues while reviewing PlayChess.java. When examining for check/checkmate/stalemate piece movesets are acquired but 
+the first entry which should be the tile currently occupied was unfilled, main play loop inserted this value when getting movesets but other static
+methods did not. Now all piece classes when filling moves array do this themselves.
+
+- Checkmate and stalemate methods were found to be redundant so now a single revised method, examinePlayerStatus, does both jobs.
+These methods were also found to not properly simulate moves by not altering the pieceList array, this has been fixed. 
+
+
+41 - September 8
+- PlayChess.java has been reviewed, reorganized, optimized, and fully commented. Testing and final review may now commence.
+
+- Tested the program using various notable chess games as reference. Including, Deep Blue v Kasparov (1996), Deep Blue v Kasparov (1997), and 
+Kasparov v Kramnik (2000)
+
+- Found bug in Pawn move method. Only set doubleJump boolean to true if the Pawn had double jumped, if it single jumped all the way to the end of
+board the condition checking would see doubleJump as false and look 2 squares ahead off the end of the board, throwing an exception. 
+
+
+42 - September 9
+- Found bug in examinePlayerStatus method whereby simulated moves were not properly made affecting stalemate and checkmate.
+
+- As of now testing is complete but will occassionally revisit. Final review may now commence.
