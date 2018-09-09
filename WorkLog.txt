@@ -4,7 +4,7 @@ This document lists progress made towards implementing a fully functional and pl
 Work that was planned and potential work also appears here.
 
 Creation date of this document: April 08, 2018
-Date of last modification: September 8, 2018
+Date of last modification: September 9, 2018
 
 Author: Justin Underhay 
 
@@ -397,8 +397,7 @@ These methods were also found to not properly simulate moves by not altering the
 41 - September 8
 - PlayChess.java has been reviewed, reorganized, optimized, and fully commented. Testing and final review may now commence.
 
-- Tested the program using various notable chess games as reference. Including, Deep Blue v Kasparov (1996), Deep Blue v Kasparov (1997), and 
-Kasparov v Kramnik (2000)
+- Tested the program using various notable chess games as reference. Including, Deep Blue v Kasparov (1996), Deep Blue v Kasparov (1997), and Kasparov v Kramnik (2000)
 
 - Found bug in Pawn move method. Only set doubleJump boolean to true if the Pawn had double jumped, if it single jumped all the way to the end of
 board the condition checking would see doubleJump as false and look 2 squares ahead off the end of the board, throwing an exception. 
@@ -408,3 +407,5 @@ board the condition checking would see doubleJump as false and look 2 squares ah
 - Found bug in examinePlayerStatus method whereby simulated moves were not properly made affecting stalemate and checkmate.
 
 - As of now testing is complete but will occassionally revisit. Final review may now commence.
+
+- Final review complete. Date of first publication: September 09, 2018 - 2:26pm PT. Hooray!
