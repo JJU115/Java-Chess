@@ -5,6 +5,8 @@ The main file containing the actual game is PlayChess.java, execute this one to 
 
 All .class, .png, and .htm files are neceessary to run the program. You may compile the files yourself provided you have the proper software or use the pre-compiled CLASS files in a JRE.
 
+All .class files and the Supplemental directory as a directory must be in the same directory at execution time.
+
 The largest GUI in this program is 1200 x 1050 pixels.
 
 New features and updates are planned.
